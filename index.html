@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"> 
+    <title>HJS WebSite</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh; /* height: 100vh보다 min-height가 내용이 많아질 때 안전합니다 */
+            margin: 0;
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            padding: 80px;
+        }
+        
+        /* 타이틀 스타일 */
+        .my-text-title {
+            margin-bottom: 30px;
+            text-align: center;
+            font-size : 2rem;
+        }
+
+        /* 사진 보여주기 버튼 (위로 이동) */
+        .photo-btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 25px; /* 조금 더 둥글게 해서 세련되게 */
+            transition: 0.3s;
+            margin-bottom: 20px; /* 아래 요소와 간격 */
+        }
+
+        .photo-btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.05); /* 마우스 올리면 살짝 커짐 */
+        }
+    
+        /* 사진 스타일 */
+        .styled-img {
+            display: none;
+            width: 200px; /* 크기를 조금 줄여서 밸런스를 맞춤 */
+            border-radius: 15px;
+            border: 2px solid #444;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* 자기소개 박스 */
+        details {
+            width: 60%;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        summary {
+            font-size: 1.1rem;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .intro-content {
+            padding: 15px;
+            background: #1e1e1e;
+            color: white;
+            border-radius: 10px;
+            margin-top: 10px;
+            text-align: left; /* 내용은 왼쪽 정렬 */
+        }
+    </style>
+</head>
+<body>
+    <h1 class="my-text-title">
+        HEO JUN SEO : PORTFOLIO
+    </h1>
+
+    <button class="photo-btn" onclick="togglePhoto()">프로필 사진 보기</button>
+
+    <img id="myPhoto" src="C:\Users\heoju\Pictures\증명사진.jpg" alt="프로필" class="styled-img">
+    
+    <details>
+        <summary>Introduce</summary>
+        <div class="intro-content">
+            <p>
+                🤗안녕하세요 글로벌미디어학부 23학번 허준서입니다.
+            </p>
+            <p style="font-size: 0.9rem; color: #bbb; margin-top: 10px;">
+                <p>📧Email<br>
+                    - heojunseo0401@gmail.com
+                </p>
+
+                <p>    
+                📱phone Number<br>
+                    - 010-4832-5855
+                </p>
+
+                <p>
+                    <strong>💻Tech Skills</strong><br>
+                    - Python(PCCE), C , C++
+                </p>
+
+                <p>
+                    <strong>🏃Keep Going</strong><br> 
+                    - SQLD, ADsP
+                </p>
+
+                <p>
+                    <strong>🎯Vision</strong><br>
+                    안녕하세요 저의 이번 학기 목표는 수업 과제를 넘어, 실제 포트폴리오로 쓸 수 있는 결과물을 뽑아내는 것 입니다.<br>
+                    팀원들과 활발히 소통하며, 이번 학기 수업을 재밌고 의미있는 수업으로 만들고 싶습니다. 
+                </p>
+            </p>
+        </div>
+    </details>
+
+    <script>
+        function togglePhoto() {
+            const photo = document.getElementById('myPhoto');
+            const btn = document.querySelector('.photo-btn');
+            
+            if (window.getComputedStyle(photo).display === "none") {
+                photo.style.display = "block";
+                btn.innerText = "사진 닫기";
+                btn.style.backgroundColor = "#e74c3c"; // 닫을 때는 빨간색으로 변경
+            } else {
+                photo.style.display = "none";
+                btn.innerText = "프로필 사진 보기";
+                btn.style.backgroundColor = "#3498db"; // 다시 파란색으로
+            }
+        }
+    </script>
+</body>
+</html>
