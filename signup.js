@@ -1,3 +1,6 @@
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:3000' : '';
+
 document.getElementById('signupForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -5,22 +8,20 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
     const email           = document.getElementById('email').value;
     const password        = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
-    const role            = document.querySelector('input[name="role"]:checked').value; // 'student' or 'professor'
+    const role            = document.querySelector('input[name="role"]:checked').value;
     const errorMessage    = document.getElementById('errorMessage');
 
     errorMessage.textContent = '';
 
-    // 비밀번호 확인
     if (password !== confirmPassword) {
         errorMessage.textContent = '비밀번호가 일치하지 않습니다.';
         errorMessage.style.color = 'red';
         return;
     }
 
-    // 역할에 따라 다른 엔드포인트 사용
     const endpoint = role === 'professor'
-        ? '${API_BASE}/signup/professor'
-        : '${API_BASE}/signup/student';
+        ? `${API_BASE}/signup/professor`
+        : `${API_BASE}/signup/student`;
 
     try {
         const response = await fetch(endpoint, {
@@ -41,7 +42,7 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
         }
     } catch (error) {
         console.error('Error:', error);
-        errorMessage.textContent = '서버와 연결할 수 없습니다. 터미널에서 node server.js 가 켜져있는지 확인하세요.';
+        errorMessage.textContent = '서버와 연결할 수 없습니다.';
         errorMessage.style.color = 'red';
     }
 });

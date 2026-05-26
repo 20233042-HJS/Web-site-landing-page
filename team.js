@@ -1,29 +1,27 @@
-// ── URL에서 조 번호 추출 ──
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:3000' : '';
+
 const urlParams = new URLSearchParams(window.location.search);
 const currentTeam = urlParams.get('team') || '1';
 
 const TARGET_GOAL = 100;
 let globalOpinionCount = 0;
 
-// ── 태스크 토글 (onclick에서 바로 호출하므로 전역 선언) ──
 function toggleTask(header) {
-    const item = header.parentElement;
-    item.classList.toggle('active');
+    header.parentElement.classList.toggle('active');
 }
 
-// ── 진행도 UI 업데이트 + DB 저장 ──
 function updateProgressUI(totalCount, shouldSaveToDB = false) {
-    const percentSpan = document.querySelector('.team-percent');
+    const percentSpan    = document.querySelector('.team-percent');
     const progressCircle = document.querySelector('.progress-circle');
     if (!percentSpan || !progressCircle) return;
 
     const percent = Math.min(Math.round((totalCount / TARGET_GOAL) * 100), 100);
     percentSpan.innerText = `${percent}%`;
-    progressCircle.style.background =
-        `conic-gradient(#424242 0% ${percent}%, #d1d5da ${percent}% 100%)`;
+    progressCircle.style.background = `conic-gradient(#424242 0% ${percent}%, #d1d5da ${percent}% 100%)`;
 
     if (shouldSaveToDB) {
-        fetch('${API_BASE}/api/progress', {
+        fetch(`${API_BASE}/api/progress`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ percent, totalCount, team: currentTeam })
@@ -31,13 +29,11 @@ function updateProgressUI(totalCount, shouldSaveToDB = false) {
     }
 }
 
-// ── 초기 데이터 로드 (태스크 + 진행도) ──
 async function loadInitialData() {
     try {
         const taskRes = await fetch(`${API_BASE}/api/tasks?team=${currentTeam}`);
         if (taskRes.ok) {
-            const taskData = await taskRes.json(); // 배열
-
+            const taskData = await taskRes.json();
             globalOpinionCount = 0;
 
             document.querySelectorAll('.task-item').forEach(item => {
@@ -45,7 +41,6 @@ async function loadInitialData() {
                 const board   = item.querySelector('.excuse-board');
                 if (!titleEl || !board) return;
 
-                // ▶ 아이콘 텍스트 제거 후 제목 추출
                 const title = titleEl.innerText.replace('▶', '').trim();
                 board.innerHTML = '';
 
@@ -65,7 +60,6 @@ async function loadInitialData() {
             });
         }
 
-        // 진행도 로드
         const progRes = await fetch(`${API_BASE}/api/progress?team=${currentTeam}`);
         if (progRes.ok) {
             const progData = await progRes.json();
@@ -74,21 +68,15 @@ async function loadInitialData() {
         } else {
             updateProgressUI(globalOpinionCount, false);
         }
-
-    } catch (err) {
-        console.error('초기 데이터 로드 실패:', err);
-    }
+    } catch (err) { console.error('초기 데이터 로드 실패:', err); }
 }
 
-// ── 링크 로드 ──
 async function loadSavedLinks() {
     try {
         const res = await fetch(`${API_BASE}/api/links?team=${currentTeam}`);
         if (!res.ok) return;
-
         const linkData = await res.json();
         const links = Array.isArray(linkData) ? linkData : (linkData.data || []);
-
         links.forEach(link => {
             document.querySelectorAll('.link-card').forEach(card => {
                 const cardName = card.querySelector('.tool-name')?.innerText.trim();
@@ -98,36 +86,29 @@ async function loadSavedLinks() {
                 }
             });
         });
-    } catch (err) {
-        console.error('링크 로드 실패:', err);
-    }
+    } catch (err) { console.error('링크 로드 실패:', err); }
 }
 
-// ── DOM 준비 후 실행 ──
 document.addEventListener('DOMContentLoaded', () => {
-
-    // 제목 & 진행도 조 이름 세팅
     const pageTitle = document.querySelector('.page-header h1');
     if (pageTitle) pageTitle.innerText = `${currentTeam}조 페이지 입니다`;
 
     const teamNameSpan = document.querySelector('.progress-inner .team-name');
     if (teamNameSpan) teamNameSpan.innerText = `${currentTeam}조`;
 
-    // 초기 데이터 로드
     loadInitialData();
     loadSavedLinks();
 
-    // ── 변명 작성 버튼 이벤트 ──
     document.querySelectorAll('.btn-submit').forEach(button => {
         button.addEventListener('click', async (e) => {
-            const taskBody = e.target.closest('.task-body');
-            const taskItem = e.target.closest('.task-item');
+            const taskBody  = e.target.closest('.task-body');
+            const taskItem  = e.target.closest('.task-item');
             if (!taskBody || !taskItem) return;
 
-            const titleEl    = taskItem.querySelector('.task-title');
+            const titleEl     = taskItem.querySelector('.task-title');
             const authorInput = taskBody.querySelector('.input-author');
-            const textarea   = taskBody.querySelector('textarea');
-            const board      = taskBody.querySelector('.excuse-board');
+            const textarea    = taskBody.querySelector('textarea');
+            const board       = taskBody.querySelector('.excuse-board');
 
             const taskTitle = titleEl.innerText.replace('▶', '').trim();
             const author    = authorInput?.value.trim() || '익명';
@@ -136,14 +117,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!content) return alert('내용을 입력해주세요!');
 
             try {
-                const response = await fetch('${API_BASE}/api/tasks', {
+                const response = await fetch(`${API_BASE}/api/tasks`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ taskTitle, author, content, team: currentTeam })
                 });
 
                 if (response.ok) {
-                    // 화면에 즉시 추가
                     const div = document.createElement('div');
                     div.className = 'excuse-item';
                     div.innerHTML = `<span class="excuse-author">${author}</span> : <span>${content}</span>`;
