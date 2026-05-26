@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIMO - 1조 페이지</title>
+    <link rel="stylesheet" href="team.css">
+</head>
+<body>
+
+<div class="app-container">
+    <header class="page-header">
+        <h1>1조 페이지 입니다</h1>
+        <a href="home_stu.html" style="text-decoration: none; color: inherit;">
+        <h2>TIMO</h2></a>
+    </header>
+
+    <section class="top-dashboard">
+        <div class="tool-links">
+            <div class="link-card">
+                <span class="tool-name">github</span>
+                <span class="link-action">링크 등록하기</span>
+            </div>
+            <div class="link-card">
+                <span class="tool-name">figma</span>
+                <span class="link-action">링크 등록하기</span>
+            </div>
+            <div class="link-card">
+                <span class="tool-name">notion</span>
+                <span class="link-action">링크 등록하기</span>
+            </div>
+        </div>
+
+        <div class="member-list">
+            <div class="member-item"><div class="avatar-box"></div>20261234 홍길동</div>
+            <div class="member-item"><div class="avatar-box"></div>20261234 홍길동</div>
+            <div class="member-item"><div class="avatar-box"></div>20261234 홍길동</div>
+            <div class="member-item"><div class="avatar-box"></div>20261234 홍길동</div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-circle">
+                <div class="progress-inner">
+                    <span class="team-name">1조</span>
+                    <span class="team-percent">0%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="task-list">
+        
+        <div class="task-item">
+            <div class="task-header" onclick="toggleTask(this)">
+                <div class="task-title"><span class="toggle-icon">▶</span>노션, 피그마, github 등 워크스페이스 세팅하기</div>
+            </div>
+            <div class="task-body">
+                <div class="excuse-board"></div>
+                <input type="text" class="input-author" placeholder="작성자 이름">
+                <textarea placeholder="변명 적기..."></textarea>
+                <div class="task-actions"><button class="btn-submit">작성</button></div>
+            </div>
+        </div>
+
+        <div class="task-item">
+            <div class="task-header" onclick="toggleTask(this)">
+                <div class="task-title"><span class="toggle-icon">▶</span>주제 아이데이션</div>
+            </div>
+            <div class="task-body">
+                <div class="excuse-board"></div>
+                <input type="text" class="input-author" placeholder="작성자 이름">
+                <textarea placeholder="변명 적기..."></textarea>
+                <div class="task-actions"><button class="btn-submit">작성</button></div>
+            </div>
+        </div>
+
+        <div class="task-item">
+            <div class="task-header" onclick="toggleTask(this)">
+                <div class="task-title"><span class="toggle-icon">▶</span>주제 선정하기</div>
+            </div>
+            <div class="task-body">
+                <div class="excuse-board"></div>
+                <input type="text" class="input-author" placeholder="작성자 이름">
+                <textarea placeholder="변명 적기..."></textarea>
+                <div class="task-actions"><button class="btn-submit">작성</button></div>
+            </div>
+        </div>
+
+        <div class="task-item">
+            <div class="task-header" onclick="toggleTask(this)">
+                <div class="task-title"><span class="toggle-icon">▶</span>poc 초안 설계</div>
+            </div>
+            <div class="task-body">
+                <div class="excuse-board"></div>
+                <input type="text" class="input-author" placeholder="작성자 이름">
+                <textarea placeholder="변명 적기..."></textarea>
+                <div class="task-actions"><button class="btn-submit">작성</button></div>
+            </div>
+        </div>
+
+        <div class="task-item">
+            <div class="task-header" onclick="toggleTask(this)">
+                <div class="task-title"><span class="toggle-icon">▶</span>중간발표</div>
+            </div>
+            <div class="task-body">
+                <div class="excuse-board"></div>
+                <input type="text" class="input-author" placeholder="작성자 이름">
+                <textarea placeholder="변명 적기..."></textarea>
+                <div class="task-actions"><button class="btn-submit">작성</button></div>
+            </div>
+        </div>
+
+        <div class="task-item">
+            <div class="task-header" onclick="toggleTask(this)">
+                <div class="task-title"><span class="toggle-icon">▶</span>기말발표</div>
+            </div>
+            <div class="task-body">
+                <div class="excuse-board"></div>
+                <input type="text" class="input-author" placeholder="작성자 이름">
+                <textarea placeholder="변명 적기..."></textarea>
+                <div class="task-actions"><button class="btn-submit">작성</button></div>
+            </div>
+        </div>
+
+    </section>
+</div>
+    <script src="team.js"></script>
+</body>
+</html>
