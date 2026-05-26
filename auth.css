@@ -1,0 +1,167 @@
+/* ==========================================================================
+   1. 초기화 및 전체 레이아웃 (Global Styles)
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+}
+
+body {
+    background-color: #0f172a; /* first.html과 동일한 깊은 다크 블루 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #f8fafc; /* 밝은 회백색 텍스트 */
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* AI 감성의 배경 은은한 빛 효과 추가 */
+body::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(52, 152, 219, 0.12) 0%, rgba(0,0,0,0) 70%);
+    top: 5%;
+    left: 10%;
+    z-index: 0;
+}
+
+main {
+    width: 100%;
+    max-width: 440px; 
+    padding: 24px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   2. 카드 / 폼 요소 스타일 (Form & Card Container)
+   ========================================================================== */
+.signup-container {
+    width: 100%;
+    background-color: rgba(30, 41, 59, 0.7); /* 반투명 다크 카드 효과 */
+    backdrop-filter: blur(12px); /* 글래스모피즘 효과 */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* 미세한 경계선 */
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* 제목 스타일 */
+.signup-container h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.signup-container p {
+    font-size: 14px;
+    color: #94a3b8;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+/* 입력 그룹 */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #cbd5e1; /* 라벨 색상 연하게 조절 */
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px;
+    background-color: #0f172a; /* 폼 내부 바탕은 더 어둡게 */
+    border: 1px solid #334155;
+    border-radius: 10px;
+    color: #f8fafc;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+/* 플레이스홀더 */
+.input-group input::placeholder {
+    color: #64748b;
+}
+
+/* 입력 필드 호버 및 포커스 효과 */
+.input-group input:hover {
+    border-color: #475569;
+}
+
+.input-group input:focus {
+    border-color: #3498db; /* TIMO 테마 블루 컬러 */
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.15);
+    background-color: #0f172a;
+}
+
+/* 오류 메시지 공간 고정 */
+.error-message {
+    font-size: 13px;
+    color: #ef4444; /* 조금 더 선명한 다크용 레드 */
+    min-height: 18px;
+    margin-top: -8px;
+}
+
+/* ==========================================================================
+   3. 버튼 및 하단 링크 (Buttons & Links)
+   ========================================================================== */
+/* TIMO 테마 그라데이션 블루 버튼 */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.25);
+    transition: all 0.25s ease;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(52, 152, 219, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* 하단 전환 링크 */
+.switch-link {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.switch-link a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 6px;
+    transition: color 0.2s ease;
+}
+
+.switch-link a:hover {
+    color: #60a5fa;
+    text-decoration: underline;
+}

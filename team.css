@@ -1,0 +1,299 @@
+/* 기본 초기화 및 폰트 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #d1d5da; /* 배경 회색 */
+    display: flex;
+    justify-content: center;
+    color: #333;
+}
+
+/* 전체 컨테이너 */
+.app-container {
+    width: 100%;
+    max-width: 900px;
+    background-color: #f3f4f6; /* 메인 콘텐츠 배경 (아주 연한 회색) */
+    min-height: 100vh;
+    box-shadow: -3px 0 0 #007bff; /* 왼쪽 파란색 선 */
+}
+
+/* 상단 헤더 영역 */
+.page-header {
+    background-color: #d8dbdf;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    border-bottom: 1px solid #c9cdd2;
+}
+
+.page-header h1 {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.page-header h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* 상단 대시보드 패널 */
+.top-dashboard {
+    background-color: #ffffff;
+    margin: 30px;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+/* 툴 링크 박스 */
+.tool-links {
+    display: flex;
+    gap: 15px;
+}
+
+.link-card {
+    background-color: #e5e7eb;
+    width: 110px;
+    height: 110px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.tool-name {
+    font-size: 13px;
+    color: #333;
+}
+
+.link-action {
+    font-size: 12px;
+    color: #555;
+    cursor: pointer;
+}
+
+/* 멤버 리스트 */
+.member-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.member-item {
+    background-color: #e5e7eb;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar-box {
+    width: 14px;
+    height: 14px;
+    background-color: #888; /* 네모난 회색 프로필 아이콘 */
+    border-radius: 2px;
+}
+
+/* 원형 진행도 */
+.progress-section {
+    padding-right: 20px;
+}
+
+.progress-circle {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: conic-gradient(#d1d5da 0% 100%); /* 기본은 빈 상태, JS가 채워줌 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.progress-inner {
+    width: 100px;
+    height: 100px;
+    background-color: #424242;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.team-name {
+    font-size: 18px;
+    margin-bottom: 2px;
+}
+
+.team-percent {
+    font-size: 22px;
+}
+
+/* 하단 태스크 리스트 영역 */
+.task-list {
+    padding: 0 30px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.task-item {
+    background-color: #f9fafb;
+    border: 1px solid #d1d5da;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+
+
+/* 태스크 헤더 (한 줄) */
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #f8f9fa;
+}
+
+.task-title {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle-icon {
+    font-size: 10px;
+    color: #a0aab2;
+}
+
+.task-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+
+/* 펼쳐진 태스크 (변명 적기 영역) */
+/* 기본 상태: 내용 숨기기 */
+.task-body {
+    display: none; 
+    padding: 15px;
+    background-color: #ffffff;
+}
+
+/* 활성화 상태: 내용 보이기 및 헤더 스타일 변경 */
+.task-item.active {
+    background-color: #ffffff;
+}
+
+.task-item.active .task-header {
+    border-bottom: 1px solid #d1d5da;
+    background-color: #ffffff;
+}
+
+.task-item.active .task-body {
+    display: block;
+    border-top: 1px solid #d1d5da;
+}
+
+/* 화살표 회전 효과 */
+.task-item.active .toggle-icon {
+    transform: rotate(90deg);
+}
+
+/* 공통 스타일 */
+.task-header { cursor: pointer; }
+.toggle-icon { 
+    display: inline-block;
+    transition: transform 0.2s ease; 
+}
+
+.task-body textarea {
+    width: 100%;
+    height: 100px;
+    border: none;
+    resize: none;
+    font-size: 14px;
+    color: #555;
+    outline: none;
+    font-family: inherit;
+}
+
+.task-body textarea::placeholder {
+    color: #a0aab2;
+}
+
+.task-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.btn-submit {
+    background-color: #e5e7eb;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+}
+/* =========================================
+   [수정] 게시판 및 작성자 입력 스타일
+========================================= */
+.excuse-board {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+    max-height: 200px; 
+    overflow-y: auto;
+}
+
+.excuse-item {
+    background-color: #f8f9fa;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 1.4;
+    display: flex;
+    gap: 5px; /* 이름과 내용 사이 간격 */
+    word-break: break-word;
+}
+
+.excuse-author {
+    font-weight: bold;
+    color: #4f46e5; /* 눈에 띄는 포인트 컬러 */
+    white-space: nowrap; /* 이름이 줄바꿈되지 않도록 고정 */
+}
+
+/* 추가된 이름 입력칸 디자인 */
+.input-author {
+    width: 100%;
+    border: 1px solid #d1d5da;
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    box-sizing: border-box;
+    outline: none;
+    font-family: inherit;
+}
+.input-author:focus {
+    border-color: #4f46e5;
+}

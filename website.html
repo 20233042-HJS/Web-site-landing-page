@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIMO - AI 팀 프로젝트 멤버 추천</title>
+    <style>
+        /* 기본 초기화 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a; /* 깊은 다크 블루 배경 */
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 은은한 배경 그라데이션 효과 (AI 느낌) */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.15) 0%, rgba(0,0,0,0) 70%);
+            top: 10%;
+            left: 20%;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(155, 89, 182, 0.1) 0%, rgba(0,0,0,0) 70%);
+            bottom: 10%;
+            right: 15%;
+            z-index: 0;
+        }
+
+        /* 메인 컨텐츠 컨테이너 */
+        .container {
+            text-align: center;
+            z-index: 1;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        /* 로고 스타일 */
+        .logo {
+            font-size: 5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #3498db, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 10px 30px rgba(52, 152, 219, 0.2);
+        }
+
+        /* 한 줄 소개 */
+        .subtitle {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .subtitle strong {
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        /* 버튼 컨테이너 */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* 시작하기 버튼 */
+        .login-btn {
+            display: inline-block;
+            padding: 16px 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: linear-gradient(135deg, #3498db, #9b59b6);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.6);
+            background: linear-gradient(135deg, #2980b9, #8e44ad);
+        }
+
+        .login-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* 등장 애니메이션 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="logo">TIMO</h1>
+        
+        <p class="subtitle">AI 기반 최적의 <strong>팀 프로젝트 멤버</strong> 추천 플랫폼</p>
+        
+        <div class="btn-group">
+            <a href="login.html" class="login-btn">시작하기</a>
+        </div>
+    </div>
+
+</body>
+</html>

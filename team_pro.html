@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIMO - 교수 팀 페이지</title>
+    <link rel="stylesheet" href="team.css">
+    <style>
+        /* 교수 전용 삭제 버튼 */
+        .btn-delete-excuse {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.25);
+            color: #f87171;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .btn-delete-excuse:hover { background: rgba(239,68,68,0.25); }
+
+        .excuse-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .excuse-text { flex: 1; }
+
+        /* 교수 헤더 강조 */
+        .page-header { background-color: #c8ccd0; }
+        .professor-badge {
+            background: rgba(155,89,182,0.15);
+            border: 1px solid rgba(155,89,182,0.3);
+            color: #8e44ad;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <header class="page-header">
+        <div style="display:flex; align-items:center; gap:12px;">
+            <h1 id="pageTitle">1조 페이지 입니다</h1>
+            <span class="professor-badge">👨‍🏫 교수 모드</span>
+        </div>
+        <a href="home_pro.html" style="text-decoration:none; color:inherit;">
+            <h2>TIMO</h2>
+        </a>
+    </header>
+
+    <section class="top-dashboard">
+        <div class="tool-links">
+            <div class="link-card"><span class="tool-name">github</span><span class="link-action">링크 등록하기</span></div>
+            <div class="link-card"><span class="tool-name">figma</span><span class="link-action">링크 등록하기</span></div>
+            <div class="link-card"><span class="tool-name">notion</span><span class="link-action">링크 등록하기</span></div>
+        </div>
+        <div class="member-list">
+            <div class="member-item"><div class="avatar-box"></div>20261234 홍길동</div>
+            <div class="member-item"><div class="avatar-box"></div>20261234 홍길동</div>
+            <div class="member-item"><div class="avatar-box"></div>20261234 홍길동</div>
+            <div class="member-item"><div class="avatar-box"></div>20261234 홍길동</div>
+        </div>
+        <div class="progress-section">
+            <div class="progress-circle">
+                <div class="progress-inner">
+                    <span class="team-name">1조</span>
+                    <span class="team-percent">0%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="task-list">
+        <div class="task-item">
+            <div class="task-header" onclick="toggleTask(this)">
+                <div class="task-title"><span class="toggle-icon">▶</span>노션, 피그마, github 등 워크스페이스 세팅하기</div>
+            </div>
+            <div class="task-body">
+                <div class="excuse-board"></div>
+            </div>
+        </div>
+        <div class="task-item">
+            <div class="task-header" onclick="toggleTask(this)">
+                <div class="task-title"><span class="toggle-icon">▶</span>주제 아이데이션</div>
+            </div>
+            <div class="task-body">
+                <div class="excuse-board"></div>
+            </div>
+        </div>
+        <div class="task-item">
+            <div class="task-header" onclick="toggleTask(this)">
+                <div class="task-title"><span class="toggle-icon">▶</span>주제 선정하기</div>
+            </div>
+            <div class="task-body">
+                <div class="excuse-board"></div>
+            </div>
+        </div>
+        <div class="task-item">
+            <div class="task-header" onclick="toggleTask(this)">
+                <div class="task-title"><span class="toggle-icon">▶</span>poc 초안 설계</div>
+            </div>
+            <div class="task-body">
+                <div class="excuse-board"></div>
+            </div>
+        </div>
+        <div class="task-item">
+            <div class="task-header" onclick="toggleTask(this)">
+                <div class="task-title"><span class="toggle-icon">▶</span>중간발표</div>
+            </div>
+            <div class="task-body">
+                <div class="excuse-board"></div>
+            </div>
+        </div>
+        <div class="task-item">
+            <div class="task-header" onclick="toggleTask(this)">
+                <div class="task-title"><span class="toggle-icon">▶</span>기말발표</div>
+            </div>
+            <div class="task-body">
+                <div class="excuse-board"></div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script src="api.js"></script>
+<script>
+const urlParams   = new URLSearchParams(window.location.search);
+const currentTeam = urlParams.get('team') || '1';
+
+// 토글
+function toggleTask(header) {
+    header.parentElement.classList.toggle('active');
+}
+
+// 진행도 UI
+function updateProgressUI(totalCount) {
+    const TARGET_GOAL  = 100;
+    const percentSpan  = document.querySelector('.team-percent');
+    const progressCircle = document.querySelector('.progress-circle');
+    if (!percentSpan || !progressCircle) return;
+    const percent = Math.min(Math.round((totalCount / TARGET_GOAL) * 100), 100);
+    percentSpan.innerText = `${percent}%`;
+    progressCircle.style.background =
+        `conic-gradient(#424242 0% ${percent}%, #d1d5da ${percent}% 100%)`;
+}
+
+// 변명 삭제
+async function deleteExcuse(taskId, excuseId, el) {
+    if (!confirm('이 변명을 삭제하시겠습니까?')) return;
+    try {
+        const res = await fetch(`${API_BASE}/api/tasks/${taskId}/excuses/${excuseId}`, {
+            method: 'DELETE'
+        });
+        if (res.ok) {
+            el.closest('.excuse-item').remove();
+        } else {
+            alert('삭제 실패');
+        }
+    } catch(e) {
+        console.error(e);
+        alert('서버 연결 실패');
+    }
+}
+
+// 링크 로드
+async function loadSavedLinks() {
+    try {
+        const res = await fetch(`${API_BASE}/api/links?team=${currentTeam}`);
+        if (!res.ok) return;
+        const links = await res.json();
+        const arr = Array.isArray(links) ? links : (links.data || []);
+        arr.forEach(link => {
+            document.querySelectorAll('.link-card').forEach(card => {
+                if (card.querySelector('.tool-name')?.innerText.trim() === link.toolName) {
+                    card.querySelector('.link-action').innerHTML =
+                        `<a href="${link.url}" target="_blank" style="color:#007bff;text-decoration:underline;">바로가기</a>`;
+                }
+            });
+        });
+    } catch(e) { console.error('링크 로드 실패:', e); }
+}
+
+// 초기 데이터 로드
+async function loadInitialData() {
+    try {
+        const res = await fetch(`${API_BASE}/api/tasks?team=${currentTeam}`);
+        if (!res.ok) return;
+        const taskData = await res.json();
+        let totalCount = 0;
+
+        document.querySelectorAll('.task-item').forEach(item => {
+            const titleEl = item.querySelector('.task-title');
+            const board   = item.querySelector('.excuse-board');
+            if (!titleEl || !board) return;
+
+            const title   = titleEl.innerText.replace('▶','').trim();
+            board.innerHTML = '';
+
+            const matched = taskData.find(t => t.taskTitle === title);
+            if (matched && Array.isArray(matched.excuses)) {
+                totalCount += matched.excuses.length;
+                matched.excuses.forEach(excuse => {
+                    if (!excuse.text) return;
+                    const div = document.createElement('div');
+                    div.className = 'excuse-item';
+                    div.innerHTML = `
+                        <span class="excuse-text">
+                            <span class="excuse-author">${excuse.author || '익명'}</span> : ${excuse.text}
+                        </span>
+                        <button class="btn-delete-excuse"
+                            onclick="deleteExcuse('${matched._id}','${excuse._id}',this)">
+                            🗑️ 삭제
+                        </button>
+                    `;
+                    board.appendChild(div);
+                });
+                board.scrollTop = board.scrollHeight;
+            }
+        });
+
+        updateProgressUI(totalCount);
+    } catch(e) { console.error('초기 데이터 로드 실패:', e); }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 제목 & 진행도 조 이름
+    document.getElementById('pageTitle').innerText = `${currentTeam}조 페이지 입니다`;
+    const teamNameSpan = document.querySelector('.progress-inner .team-name');
+    if (teamNameSpan) teamNameSpan.innerText = `${currentTeam}조`;
+
+    loadInitialData();
+    loadSavedLinks();
+});
+</script>
+</body>
+</html>

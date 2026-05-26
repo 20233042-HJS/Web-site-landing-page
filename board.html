@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>질문 게시판</title>
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; padding: 20px; }
+        .question-box { border: 1px solid #ccc; padding: 15px; margin-top: 10px; border-radius: 5px; }
+        .like-btn { background-color: #007bff; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
+        .like-btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    
+    <h2>새 질문 작성하기</h2>
+    <form id="questionForm">
+        <input type="text" id="title" placeholder="제목을 입력하세요" required style="width: 100%; margin-bottom: 10px; padding: 5px;"><br>
+        <textarea id="content" placeholder="질문 내용을 입력하세요" required style="width: 100%; height: 100px; margin-bottom: 10px; padding: 5px;"></textarea><br>
+        <button type="submit">질문 등록</button>
+    </form>
+
+    <hr>
+
+    <h2>질문 목록</h2>
+    <!-- DB에서 불러온 질문들이 여기에 표시됩니다 -->
+    <div id="questionList"></div>
+
+    <script src="board.js"></script>
+</body>
+</html>
