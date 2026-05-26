@@ -12,6 +12,11 @@ app.use(cors());
 // HTML/CSS/JS 정적 파일 서빙 (Render 배포용)
 app.use(express.static(path.join(__dirname)));
 
+// 루트 접속 시 website.html로 이동
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'website.html'));
+});
+
 
 // ──────────────────────────────────────────
 //  DB 연결 (교수용 / 학생용 분리)
