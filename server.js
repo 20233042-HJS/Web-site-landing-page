@@ -21,9 +21,16 @@ const studentDB   = mongoose.createConnection(process.env.STUDENT_DB_URI  || 'mo
 
 professorDB.on('connected', () => console.log('✅ 교수용 DB(professor_db) 연결 성공!'));
 professorDB.on('error',     (err) => console.log('❌ 교수용 DB 연결 실패:', err));
+professorDB.on('disconnected', () => console.log('⚠️ 교수용 DB 연결 끊김'));
 
 studentDB.on('connected', () => console.log('✅ 학생용 DB(student_db) 연결 성공!'));
 studentDB.on('error',     (err) => console.log('❌ 학생용 DB 연결 실패:', err));
+studentDB.on('disconnected', () => console.log('⚠️ 학생용 DB 연결 끊김'));
+
+// DB 연결 실패해도 서버가 죽지 않도록 처리
+process.on('unhandledRejection', (err) => {
+    console.log('⚠️ unhandledRejection:', err.message);
+});
 
 
 // ──────────────────────────────────────────
